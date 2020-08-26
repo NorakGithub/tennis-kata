@@ -7,6 +7,33 @@ import 'mocha';
 import { expect } from 'chai';
 
 
+describe('Game is On Going', () => {
+  it('should be on going when score is 0-0', () => {
+    const game = updateGameScore(0, 0);
+    const winner = decideGameWinner(game);
+    expect(winner).equal('On Going');
+  });
+  it('should be on going when score is 3-3', () => {
+    const game = updateGameScore(3, 3);
+    const winner = decideGameWinner(game);
+    expect(winner).equal('On Going');
+  });
+  it('should be on going when score is 4-4', () => {
+    const game = updateGameScore(4, 4);
+    const winner = decideGameWinner(game);
+    expect(winner).equal('On Going');
+  });
+  it('should be on going when score is 5-4 or 4-5', () => {
+    const game = updateGameScore(5, 4);
+    const winner = decideGameWinner(game);
+    expect(winner).equal('On Going');
+    
+    const game1 = updateGameScore(4, 5);
+    const winner1 = decideGameWinner(game1);
+    expect(winner1).equal('On Going');
+  });
+});
+
 describe('Player 1', () => {
   it('should win the game when the score is 4-0', () => {
     // given
@@ -64,6 +91,14 @@ describe('Player 2', () => {
 });
 
 describe('Game', () => {
+  it('should print love - love when the score is 0-0', () => {
+    const score = printScore([0, 0]);
+    expect(score).equal('love - love');
+  });
+  it('should print fifteen - fifteen when the score is 1-1', () => {
+    const score = printScore([1, 1]);
+    expect(score).equal('fifteen - fifteen');
+  });
   it('should print thirty - thirty when the score is 2-2', () => {
     // given
     const player1Points = 2;
@@ -74,6 +109,10 @@ describe('Game', () => {
 
     // then
     expect(score).equal('thirty - thirty');
+  });
+  it('should print thirty - fifteen when the score is 2-1', () => {
+    const score = printScore([2, 1]);
+    expect(score).equal('thirty - fifteen');
   });
 
   it('should print deuce when the score is 3-3', () => {
